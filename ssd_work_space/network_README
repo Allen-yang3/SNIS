@@ -1,0 +1,5 @@
+Running converge experiment:
+
+python windows_converge_test.py -num NUMBER_OF_ITERATION -workload WORKLOAD_FILE_NAME
+
+After the experiment finishes, the intermediate files will be collected into test/WORKLOAD_FILE_NAME_WITHOUT_FILE_EXTENSION

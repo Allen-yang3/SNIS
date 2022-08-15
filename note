@@ -1,0 +1,55 @@
+In Danlin's trace file, the file type 0 stands for Read while 1 for write
+
+
+Flow configuration file format:
+First line: flow #
+src dst priority packet# start_time end_time
+
+Topology configuration file format:
+First line: total node #, switch node #, link #
+Second line: switch node IDs...
+src0 dst0 rate delay error_rate
+
+L2_ACK_INTERVAL: send ACK after that many packets received
+L2_CHUNK_SIZE: send ACK after that many packets received
+
+
+
+
+The trace printing is in trace-helper.cc
+
+The time in the trace is the timestamp when the packet arrives at the ingress port
+
+The delay in the topology configuration file is the propagation delay, which is the minimum time required for a packet to travel through that link
+
+The queuing delay can be calculated by the arrival time at the receiver node minus the arrival time at the sender node minus the propagation delay
+
+The priority queue with lower index in the array has higher priority
+
+The simulator author's option on how to tracking the delay
+https://github.com/bobzhuyb/ns3-rdma/issues/5#issuecomment-287273747
+
+
+
+The logic to drop packets:
+https://github.com/bobzhuyb/ns3-rdma/blob/master/src/network/model/broadcom-node.cc#L117-L161
+
+qFb packet is the CNP (the value is the ratio of ECN marked packet vs. total number of packets).
+qbb/Qbb:... packet is ACK or NACK.
+
+The qbb-net-device stands for both the NIC and switch. If the qbb-net-device is a switch, it will check its brodcom-node to see if it need to drop the packet due to buffer size limit.
+The size limit for the totoal egress queue is 1000 MB, that size limit works for NIC. For switch, the size limit by default is 9 MB, because before enqueue the packet, the switch will call both CheckIngressAdmission and CheckEgressAdmission. In those two functions, the size limit is 9 MB.
+
+The node ID in the mix.tr is the same as set in topology.txt, i.e., the switch ID listed in topology.txt will still set as a switch in simulation and mix.tr
+
+SP stands for service pool in the code. PG is priority group.
+
+
+
+Non-volatile memory express (NVMe) over fabrics (NVMe-oF) is an emerging technology that allows hundreds and thousands of NVMe-compatible SSDs to be connected over a network fabric such as Ethernet. 
+An SSD that is compatible with the NVMe-oF standard over an Ethernet connection is referred to as an Ethernet-attached SSD, or in short, an eSSD.
+
+The NVMe-oF protocol supports the remote direct-attached storage (rDAS) protocol that allows a large number of eSSDs to be connected to a remote host over the network fabric. 
+The NVMe-oF protocol further supports the remote direct memory access (RDMA) protocol to provide a reliable transport service to carry NVMe commands, data, and responses between the remote host and the eSSDs over a network fabric. 
+Examples of the transport protocols that can provide RDMA services include InfiniBand, iWARP, RoCE v1, and RoCE v2.
+
