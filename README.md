@@ -1,191 +1,152 @@
-<!--
-*** Thanks for checking out this README Template. If you have a suggestion that would
-*** make this better, please fork the repo and create a pull request or simply open
-*** an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
-*** To avoid retyping too much info. Do a search and replace for the following:
-*** github_username, repo_name, twitter_handle, email
--->
+ # MQSim Linux Convergence Test Readme
+
+INTRO HERE TODO
+
+## Getting Started 
+
+To run the MQSim Linux Simulator, ensure that the correct versions of python, GCC and G++ are used
+For this project, we use:
+
+- GCC/G++ 5 for the linux simulator and python 2.
+- MQSim runs in Python 3 however python 2 can be used and is recommended.
+- All setup should be done under ssd_work_space/simulation
 
 
+### Installing/configuring GCC and G++ 5
 
+1. Add both of these to the sources.list file. (sudo gedit /etc/apt/sources.list)
 
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Congestion Control</h3>
-
-  <p align="center">
-    YOUR_SHORT_DESCRIPTION
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
-  </p>
-</p>
-
-
-
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
-
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`
-
-
-### Built With
-
-* []()
-* []()
-* []()
-
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-To get a local copy up and running follow these simple steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
+```
+deb [trusted=yes] http://dk.archive.ubuntu.com/ubuntu/ xenial main
+deb [trusted=yes] http://dk.archive.ubuntu.com/ubuntu/ xenial universe 
 ```
 
-### Installation
+2. Update and install using the following 2 commands:
 
-1. Clone the repo
-```sh
-git clone https://github.com/github_username/repo_name.git
 ```
-2. Install NPM packages
-```sh
-npm install
+$ sudo apt update
+$ sudo apt install g++-5 gcc-5
 ```
 
+> See [here](https://askubuntu.com/questions/1235819/ubuntu-20-04-gcc-version-lower-than-gcc-7 ) for a more complete documentation on the instructions to install and set up GCC 5
 
+### Installing/Configuring Python2
 
-<!-- USAGE EXAMPLES -->
-## Usage
+There are multiple ways to set python 2 as the default version. If you already have python3 configured to python, then you can either create a new virtual environment or update alternative for python. For our testing, we used "update alternative".
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+To change python version system-wide we can use update-alternatives python command. Logged in as a root user, first list all available python alternatives:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+```
+$ update-alternatives --list python
+```
 
+You may recieve an error message looking something like this:
 
+> update-alternatives: error: no alternatives for python
 
-<!-- ROADMAP -->
-## Roadmap
+This means that no python alternatives has been recognized by update-alternatives command. For this reason we need to update our alternatives table and include both python2.7 and python3.4:
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+```
+$ update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+$ update-alternatives --install /usr/bin/python python /usr/bin/python3.4 2
+```
 
+The path in both commands should be modified accordingly based on where python is installed. In most cases it will be installed in the listed path above.
 
+```bash
+$ python --version
+Python 3.4.2
+```
+---
 
-<!-- CONTRIBUTING -->
-## Contributing
+Now, we can again list all python alternatives:
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+```
+$ update-alternatives --list python
+/usr/bin/python2.7
+/usr/bin/python3.4
+```
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+From now on, we can anytime switch between the above listed python alternative versions using below command and entering a selection number:
 
+```bash
+update-alternatives --config python
+```
 
+After this command, select python2.7 for auto mode and python3 for manual mode.
 
-<!-- LICENSE -->
-## License
+> For more documentation on installing python please refer to [this](https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux) page
 
-Distributed under the MIT License. See `LICENSE` for more information.
+## Running The Simulation
 
+INTRO TODO
 
+### Starting the Network Simulator
 
-<!-- CONTACT -->
-## Contact
+After changing the default version and configuring python, please run the following command under the `/Simulation` directory to ensure that the GCC and G++ version are correctly assigned.
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+```
+$ CC='gcc-5' CXX='g++-5' ./waf configure
+```
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+This command will also build the simulator and prepare it for tests to be run.
 
+All Simulator files can be found under `ssd-work-space/simulation`. Under simulation, the configuration files as well as output and flow files will be found under `simulation/mix`.
 
+To run the simulation: 
+```
+$ ./waf --run 'scratch/third mix/config.txt'
+```
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
+Where config.txt can be replaced with a configuration file of your choice. 
 
-* []()
-* []()
-* []()
+The configuration file has different settings within that can be adjusted based on your needs. We have provided a base `config.txt` file to run the simulation.
 
+Also included is `config_doc.txt` which goes into further detail on configuring the simulator. 
 
+### Starting MQSim 
 
+To run MQSim, path under `/ssd_work_space`. To actually start it run
 
+```
+Python3 Linux_converge_test.py
+```
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo.svg?style=flat-square
-[contributors-url]: https://github.com/github_username/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo.svg?style=flat-square
-[forks-url]: https://github.com/github_username/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo.svg?style=flat-square
-[stars-url]: https://github.com/github_username/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=flat-square
-[issues-url]: https://github.com/github_username/repo/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=flat-square
-[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/github_username
-[product-screenshot]: images/screenshot.png
+The workload file as well as other configurations can be added to this command as arguments. Refer to `Linux_converge_test.py` for all arguments.
+
+> Please use Python 3.8+ to ensure compatibility
+
+Here's an example of starting simulator with command line arguments:
+```
+$ python3.8 ./Linux_converge_test.py -workload $.trace -map_mod random -rack_num 4
+```
+
+## Experiments
+
+*Workload: 1us; 40_to_4; Random distribution; 5W and 10W requests; one SSD device per target*
+
+```
+python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W.trace -map_mod random -rack_num 4
+python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-5W.trace -map_mod random -rack_num 4
+```
+
+---
+
+*Workload: 1us; 40_to_4; Random distribution; 5W and 10W requests; multiple (5) SSD devices per target with 3 patterns*
+
+```
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod random -rack_num 4
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod sequential -rack_num 4
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod even -rack_num 4
+
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod random -rack_num 4
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod sequential -rack_num 4
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod even -rack_num 4
+
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod random -rack_num 4 -ssd_per_target 5
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod sequential -rack_num 4 -ssd_per_target 5
+$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod even -rack_num 4 -ssd_per_target 5
+```
+
+Output files can be found under `ssd_work_space/test/{workflow name}`. Each iteration will be labeled by their iteration number. 
 
