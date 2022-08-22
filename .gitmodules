@@ -1,0 +1,3 @@
+[submodule "SSD_Sim"]
+	path = SSD_Sim
+	url = https://github.com/DanlinJia/SSD_Sim.git
