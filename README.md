@@ -106,7 +106,7 @@ Also included is `config_doc.txt` which goes into further detail on configuring 
 
 ### Starting MQSim 
 
-## Compile MQSim
+#### Compile MQSim
 ```
 git submodule init
 cd SSD_Sim/MQSim
@@ -114,7 +114,7 @@ make
 cp ./MQSim SNIS/ssd_work_space
 ```
 
-## Execute MQSim
+#### Execute MQSim
 
 To run MQSim, path under `/ssd_work_space`. To actually start it run
 
