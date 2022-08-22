@@ -106,11 +106,23 @@ Also included is `config_doc.txt` which goes into further detail on configuring 
 
 ### Starting MQSim 
 
+## Compile MQSim
+```
+git submodule init
+cd SSD_Sim/MQSim
+make
+cp ./MQSim SNIS/ssd_work_space
+```
+
+## Execute MQSim
+
 To run MQSim, path under `/ssd_work_space`. To actually start it run
 
 ```
-Python3 Linux_converge_test.py
+./MQSim -i ssdconfig.test.xml -w workload-trace.xml
 ```
+
+Check SSD_Sim/MQSim/README.md for details about running MQSim.
 
 The workload file as well as other configurations can be added to this command as arguments. Refer to `Linux_converge_test.py` for all arguments.
 
