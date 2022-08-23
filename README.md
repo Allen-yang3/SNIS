@@ -1,15 +1,17 @@
  # MQSim Linux Convergence Test Readme
 
-INTRO HERE TODO
+SNIS is an iterative storage-network simulator which evaluates dis-aggregated storage systems. SNIS integrates the existing storage and network simulators NS3 simulator for RDMA (NS3-RDMA) and MQSim simulator for SSD
 
 ## Getting Started 
 
 To run the MQSim Linux Simulator, ensure that the correct versions of python, GCC and G++ are used
 For this project, we use:
 
+- Ubuntu Linux 22.04
 - GCC/G++ 5 for the linux simulator and python 2.
 - MQSim runs in Python 3 however python 2 can be used and is recommended.
 - All setup should be done under ssd_work_space/simulation
+
 
 
 ### Installing/configuring GCC and G++ 5
@@ -162,4 +164,7 @@ $ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40
 ```
 
 Output files can be found under `ssd_work_space/test/{workflow name}`. Each iteration will be labeled by their iteration number. 
+
+If error message `MQSim does not have permissions` occurs run the following command:
+> $ sudo chmod u+x MQSim
 
