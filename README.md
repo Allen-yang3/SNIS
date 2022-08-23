@@ -16,7 +16,7 @@ For this project, we use:
 
 ### Installing/configuring GCC and G++ 5
 
-1. Add both of these to the sources.list file. (sudo gedit /etc/apt/sources.list)
+1. Add both of these to the sources.list file. (sudo nano /etc/apt/sources.list)
 
 ```
 deb [trusted=yes] http://dk.archive.ubuntu.com/ubuntu/ xenial main
