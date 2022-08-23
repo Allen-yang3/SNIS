@@ -108,13 +108,20 @@ Also included is `config_doc.txt` which goes into further detail on configuring 
 
 ### Starting MQSim 
 
+#### Python Libraries Required for MQSim
+For our script we use both Pandas and absl. Please find the commands below for installation.
+
+```
+$ sudo pip3 install pandas
+$ sudo pip3 install absl
+
 #### Compile MQSim
 ```
-git submodule init
-git submodule update
-cd SSD_Sim/MQSim
-make
-cp ./MQSim SNIS/ssd_work_space
+$ git submodule init
+$ git submodule update
+$ cd SSD_Sim/MQSim
+$ make
+$ cp ./MQSim SNIS/ssd_work_space
 ```
 
 #### Execute MQSim
