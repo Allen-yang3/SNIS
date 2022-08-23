@@ -4,7 +4,7 @@ SNIS is an iterative storage-network simulator which evaluates dis-aggregated st
 
 ## Getting Started 
 
-To run the MQSim Linux Simulator, ensure that the correct versions of python, GCC and G++ are used
+To run the MQSim Linux Simulator, ensure that the correct versions of Linux, Python, GCC and G++ are used
 For this project, we use:
 
 - Ubuntu Linux 22.04
@@ -50,14 +50,14 @@ This means that no python alternatives has been recognized by update-alternative
 
 ```
 $ update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-$ update-alternatives --install /usr/bin/python python /usr/bin/python3.4 2
+$ update-alternatives --install /usr/bin/python python /usr/bin/python3.10 2
 ```
 
 The path in both commands should be modified accordingly based on where python is installed. In most cases it will be installed in the listed path above.
 
 ```bash
 $ python --version
-Python 3.4.2
+Python 3.10.4
 ```
 ---
 
@@ -66,7 +66,7 @@ Now, we can again list all python alternatives:
 ```
 $ update-alternatives --list python
 /usr/bin/python2.7
-/usr/bin/python3.4
+/usr/bin/python3.10
 ```
 
 From now on, we can anytime switch between the above listed python alternative versions using below command and entering a selection number:
@@ -81,7 +81,7 @@ After this command, select python2.7 for auto mode and python3 for manual mode.
 
 ## Running The Simulation
 
-INTRO TODO
+In this section we will explain how to configure and run experiments on the NS3 simulator.
 
 ### Starting the Network Simulator
 
@@ -133,7 +133,7 @@ The workload file as well as other configurations can be added to this command a
 
 Here's an example of starting simulator with command line arguments:
 ```
-$ python3.8 ./Linux_converge_test.py -workload $.trace -map_mod random -rack_num 4
+$ python3 Linux_converge_test.py -workload $.trace -map_mod random -rack_num 4
 ```
 
 ## Experiments
@@ -141,8 +141,8 @@ $ python3.8 ./Linux_converge_test.py -workload $.trace -map_mod random -rack_num
 *Workload: 1us; 40_to_4; Random distribution; 5W and 10W requests; one SSD device per target*
 
 ```
-python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W.trace -map_mod random -rack_num 4
-python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-5W.trace -map_mod random -rack_num 4
+python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W.trace -map_mod random -rack_num 4
+python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-5W.trace -map_mod random -rack_num 4
 ```
 
 ---
@@ -150,17 +150,17 @@ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_t
 *Workload: 1us; 40_to_4; Random distribution; 5W and 10W requests; multiple (5) SSD devices per target with 3 patterns*
 
 ```
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod random -rack_num 4
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod sequential -rack_num 4
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod even -rack_num 4
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod random -rack_num 4
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod sequential -rack_num 4
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_20-10W-Linux.trace -map_mod even -rack_num 4
 
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod random -rack_num 4
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod sequential -rack_num 4
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod even -rack_num 4
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod random -rack_num 4
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod sequential -rack_num 4
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod even -rack_num 4
 
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod random -rack_num 4 -ssd_per_target 5
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod sequential -rack_num 4 -ssd_per_target 5
-$ python3.8 ./Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod even -rack_num 4 -ssd_per_target 5
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod random -rack_num 4 -ssd_per_target 5
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod sequential -rack_num 4 -ssd_per_target 5
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W-Linux.trace -map_mod even -rack_num 4 -ssd_per_target 5
 ```
 
 Output files can be found under `ssd_work_space/test/{workflow name}`. Each iteration will be labeled by their iteration number. 
