@@ -114,9 +114,10 @@ For our script we use both Pandas and absl. Please find the commands below for i
 ```
 $ sudo pip3 install pandas
 $ sudo pip3 install absl
+```
 
 #### Compile MQSim
-```
+
 $ git submodule init
 $ git submodule update
 $ cd SSD_Sim/MQSim
