@@ -126,7 +126,8 @@ $ git submodule init
 $ git submodule update
 $ cd SSD_Sim/MQSim
 $ make
-$ cp ./MQSim SNIS/ssd_work_space
+$ chmod +x ./MQSim
+$ cp ./MQSim $PATH_TO_SNIS/ssd_work_space
 ```
 
 
