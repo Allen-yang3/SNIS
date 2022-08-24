@@ -1,16 +1,16 @@
  # MQSim Linux Convergence Test Readme
 
-SNIS is an iterative storage-network simulator which evaluates dis-aggregated storage systems. SNIS integrates the existing storage and network simulators NS3 simulator for RDMA (NS3-RDMA) and MQSim simulator for SSD
+SNIS is an iterative storage-network simulator which evaluates dis-aggregated storage systems. SNIS integrates storage and network simulations to model the end-to-end performance of disaggregated storage systems and conducts multiple rounds of simulations to update arrival times of read/write requests.
 
 ## Getting Started 
 
 To run the MQSim Linux Simulator, ensure that the correct versions of Linux, Python, GCC and G++ are used
 For this project, we use:
 
-- Ubuntu Linux 22.04
-- GCC/G++ 5 for the linux simulator and python 2.
-- MQSim runs in Python 3 however python 2 can be used and is recommended.
-- All setup should be done under ssd_work_space/simulation
+- Ubuntu Linux 22.04.
+- GCC/G++ 5 and python 2 NS3 Simulator.
+- Python 3 for MQSim and SNIS.
+- All setup for NS3 should be done under ssd_work_space/simulation.
 
 
 
@@ -31,6 +31,8 @@ $ sudo apt install g++-5 gcc-5
 ```
 
 > See [here](https://askubuntu.com/questions/1235819/ubuntu-20-04-gcc-version-lower-than-gcc-7 ) for a more complete documentation on the instructions to install and set up GCC 5
+
+&nbsp;
 
 ### Installing/Configuring Python2
 
@@ -79,9 +81,11 @@ After this command, select python2.7 for auto mode and python3 for manual mode.
 
 > For more documentation on installing python please refer to [this](https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux) page
 
+&nbsp;
+
 ## Running The Simulation
 
-In this section we will explain how to configure and run experiments on the NS3 simulator.
+In this section we will explain how to configure and run experiments on the NS3 and SNIS simulators.
 
 ### Starting the Network Simulator
 
@@ -102,9 +106,9 @@ $ ./waf --run 'scratch/third mix/config.txt'
 
 Where config.txt can be replaced with a configuration file of your choice. 
 
-The configuration file has different settings within that can be adjusted based on your needs. We have provided a base `config.txt` file to run the simulation.
+The configuration file has different settings within that can be adjusted based on your needs. We have provided a base [config.txt](https://github.com/Allen-yang3/SNIS/blob/master/ssd_work_space/simulation/mix/config.txt) file to run the simulation. Also included is [config_doc.txt](https://github.com/Allen-yang3/SNIS/blob/master/ssd_work_space/simulation/mix/config_doc.txt) which goes into further detail on configuring the simulator. 
 
-Also included is `config_doc.txt` which goes into further detail on configuring the simulator. 
+&nbsp;
 
 ### Starting MQSim 
 
@@ -125,6 +129,7 @@ $ make
 $ cp ./MQSim SNIS/ssd_work_space
 ```
 
+
 #### Execute MQSim
 
 To run MQSim, path under `/ssd_work_space`. To actually start it run
@@ -133,15 +138,29 @@ To run MQSim, path under `/ssd_work_space`. To actually start it run
 ./MQSim -i ssdconfig.test.xml -w workload-trace.xml
 ```
 
-Check SSD_Sim/MQSim/README.md for details about running MQSim.
+Refer to [MQSim Readme](https://github.com/DanlinJia/SSD_Sim/blob/8e3b61709aba95ecfdb8d2189259addfa474e690/MQSim/README.md) for more documentation on compiling
 
-The workload file as well as other configurations can be added to this command as arguments. Refer to `Linux_converge_test.py` for all arguments.
+&nbsp;
+
+The workload file as well as other configurations can be added to this command as arguments. Examples:
+
+```
+flags.DEFINE_string("workload", "Fujitsu_V0_based_50_to_1_net-ssd.csv", "The workload input file")
+flags.DEFINE_float("conv", 0.05, "converge criteria, if set to 0, SNIS will finish all iterations specified by 'num'")
+flags.DEFINE_string("map_mod", "sequential", "The defualt initiator_target mapping is sequential")
+flags.DEFINE_integer("rack_num", 2, "The default rack number is 2") 
+flags.DEFINE_integer("ssd_per_target", 1, "The number of ssds each target has")
+```
+
+Refer to [Linux_converge_test.py](https://github.com/Allen-yang3/SNIS/blob/master/ssd_work_space/Linux_converge_test.py) for all arguments.
 
 > Please use Python 3.8+ to ensure compatibility
 
+&nbsp;
+
 Here's an example of starting simulator with command line arguments:
 ```
-$ python3 Linux_converge_test.py -workload $.trace -map_mod random -rack_num 4
+$ python3 Linux_converge_test.py -workload V0_MAP_InterArrival_1_256_MEAN_40_to_4-10W.trace -map_mod random -rack_num 4
 ```
 
 ## Experiments
@@ -176,3 +195,28 @@ Output files can be found under `ssd_work_space/test/{workflow name}`. Each iter
 If error message `MQSim does not have permissions` occurs run the following command:
 > $ sudo chmod u+x MQSim
 
+&nbsp;
+
+#### Simulation outputs:
+
+
+NS3 Simulation Output: 
+```
+fct.txt, pfc.txt, mix.tr
+```
+
+MQSim Simulation output:
+
+```
+test.txt
+```
+
+SNIS Simulation Output:
+
+```
+test.txt
+```
+
+## References
+
+D. Jia et al., "SNIS: Storage-Network Iterative Simulation for Disaggregated Storage Systems," 2021 IEEE International Performance, Computing, and Communications Conference (IPCCC), 2021, pp. 1-6, doi: 10.1109/IPCCC51483.2021.9679397.
