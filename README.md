@@ -1,4 +1,4 @@
- # MQSim Linux Convergence Test Readme
+ # SNIS Linux Convergence Test Readme
 
 SNIS is an iterative storage-network simulator which evaluates dis-aggregated storage systems. SNIS integrates storage and network simulations to model the end-to-end performance of disaggregated storage systems and conducts multiple rounds of simulations to update arrival times of read/write requests.
 
