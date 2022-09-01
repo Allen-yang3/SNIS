@@ -2,8 +2,8 @@ SNIS=$(pwd)
 
 # initialize submodule
 echo "initialize submodule:"
-git submodule update --init --recursive --remote
-git submodule sync
+git submodule init
+git submodule update
 cd SSD_Sim && git pull https://github.com/DanlinJia/SSD_Sim.git main
 
 # compile MQSim and copy it to workspace
