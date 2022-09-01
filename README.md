@@ -87,6 +87,13 @@ After this command, select python2.7 for auto mode and python3 for manual mode.
 
 In this section we will explain how to configure and run experiments on the NS3 and SNIS simulators.
 
+### Initialization
+
+The following command pulls all submodules, compiles and copies necessary files from the submodule.
+```
+bash ./init.sh
+```
+
 ### Starting the Network Simulator
 
 After changing the default version and configuring python, please run the following command under the `/Simulation` directory to ensure that the GCC and G++ version are correctly assigned.
