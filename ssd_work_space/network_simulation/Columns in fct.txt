@@ -1,5 +1,0 @@
-# Explain the columns in the fct.txt file
-
-scr, destination, none, none, flow_size, start_time, fct, none
-
-# The unit of flow_size is Bytes (e.g., 12000 means there are 12 packets which have 1000 bytes in each packet.
